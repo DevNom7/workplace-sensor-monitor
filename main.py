@@ -7,6 +7,17 @@ import random
 
 app = FastAPI(title="Workplace Sensor Monitor")
 
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Thresholds
 TEMP_THRESHOLD = 80.0
 OCCUPANCY_THRESHOLD = 0.9  # 90% capacity
@@ -34,6 +45,9 @@ def get_room(room_id: str):
         raise HTTPException(status_code=404, detail="Room not found")
     return rooms[room_id]
 
+@app.get("/dashboard")
+def serve_dashboard():
+    return FileResponse("dashboard.html")
 
 #POSTS
 
