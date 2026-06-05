@@ -1,7 +1,10 @@
 import requests
+import os
+from dotenv import load_dotenv
 
-# Replace this with your real Discord webhook URL
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1512251932452847768/mKMY-ozHPU0UjHSE7CbUoTKRXmb8I6PpaStKZywYWn93CdxSwdTXzljsDRHWaBA8iUMa"
+load_dotenv()
+
+DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 
 def send_alert(room_name: str, issue: str, value: float):
     """
